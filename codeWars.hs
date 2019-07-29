@@ -48,8 +48,19 @@ boolToWord x
   | x == False = "No"
 
 
-  makeNegative :: (Num a, Ord a) => a -> a
-  makeNegative x
+makeNegative :: (Num a, Ord a) => a -> a
+makeNegative x
     | x < 0 = x
     | x > 0 = x*(-1)
     | otherwise = 0
+
+
+noSpace :: String -> String
+noSpace str = filter(isNotSpace) str
+    
+isNotSpace :: Char -> Bool
+isNotSpace x = x/=' '
+
+
+noSpace2 :: String -> String
+noSpace2 = filter (/=' ')
