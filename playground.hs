@@ -13,3 +13,9 @@ bmiTell bmi
     | bmi <= 25.0 = "You're supposedly normal. Pffft, I bet you're ugly!"  
     | bmi <= 30.0 = "You're fat! Lose some weight, fatty!"  
     | otherwise   = "You're a whale, congratulations!"
+
+
+describeList :: [a] -> String  
+describeList xs = "The list is " ++ case xs of [] -> "empty."  
+                                               [x] -> "a singleton list."   
+                                               xs -> "a longer list."  
