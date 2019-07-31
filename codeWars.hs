@@ -1,6 +1,7 @@
 -- module SquareDigit where
 import Data.List (delete)
-    
+import Numeric 
+import Text.Printf   
 
 
 squareDigit :: Int -> Int
@@ -64,3 +65,37 @@ isNotSpace x = x/=' '
 
 noSpace2 :: String -> String
 noSpace2 = filter (/=' ')
+
+evenOrOdd :: Integral a => a -> [Char]
+evenOrOdd n 
+  | odd n = "Odd"
+  | otherwise = "Even"
+
+
+highAndLow :: String -> String
+highAndLow input = 
+    let stringToArray = map (read) . words $ input
+        maxNum = maximum stringToArray
+        minNum = minimum stringToArray
+    in unwords [show (maxNum::Int), show (minNum::Int)] -- Resolving ambiguous type in the show function
+
+    
+
+
+seriesSum :: Integer -> String
+seriesSum n =  formatFloatN . seriesSumNum $ n
+    where formatFloatN floatNum  = showFFloat (Just 2) floatNum ""
+    
+
+seriesSumNum :: Integer -> Float
+seriesSumNum 0 = 0
+seriesSumNum n = calculation n + seriesSumNum (n-1)
+    where calculation n = 1/(1 +((fromInteger n-1) * 3)) 
+
+
+
+series :: [Double]
+series = map (1/) [1, 4 ..]
+
+seriesSum2 :: Integer -> String
+seriesSum2 n = printf "%.2f" $ sum $ take (fromInteger n) series
