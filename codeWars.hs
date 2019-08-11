@@ -99,3 +99,23 @@ series = map (1/) [1, 4 ..]
 
 seriesSum2 :: Integer -> String
 seriesSum2 n = printf "%.2f" $ sum $ take (fromInteger n) series
+
+
+
+-- Return the greatest subarray sum within the array of integers passed in.
+maxSequence :: [Int] -> Int
+maxSequence [] = 0
+maxSequence x = maxSequenceStart x 0
+
+maxSequenceStart ::[Int] -> Int -> Int
+maxSequenceStart [] s = s
+maxSequenceStart (x:xs) s = if msi (x:xs) > s
+                            then maxSequenceStart xs (msi (x:xs))
+                            else maxSequenceStart xs s
+                            where msi intx = maxSeqIndividual (length intx) (intx) 0
+
+maxSeqIndividual :: Int -> [Int] -> Int -> Int
+maxSeqIndividual 0 _ s= s
+maxSeqIndividual l x s = if sum (take l x) > s
+                        then maxSeqIndividual (l-1) x (sum (take l x))
+                        else maxSeqIndividual (l-1) x s
