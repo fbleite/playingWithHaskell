@@ -1,8 +1,7 @@
 -- module SquareDigit where
-import Data.List (delete)
+import Data.List (delete, isInfixOf, nub, sort)
 import Numeric 
-import Text.Printf   
--- import Data.List.Split (chunksOf)
+import Text.Printf 
 
 
 squareDigit :: Int -> Int
@@ -137,3 +136,17 @@ groupByCommasString x = x
 
 
 
+-- First version
+inArray :: [String] -> [String] -> [String]
+inArray a1 a2 = sort . nub . filter (`elemPartial` a2) $ a1
+
+elemPartial :: String -> [String] -> Bool  
+elemPartial a [] = False  
+elemPartial a (x:xs)  
+    | a `isInfixOf` x    = True  
+    | otherwise = a `elemPartial` xs  
+
+
+-- Fancier version
+inArray' :: [String] -> [String] -> [String]
+inArray' a1 a2 = sort . nub . filter (\s -> any (s `isInfixOf`) a2) $ a1
