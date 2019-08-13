@@ -2,6 +2,7 @@
 import Data.List (delete)
 import Numeric 
 import Text.Printf   
+-- import Data.List.Split (chunksOf)
 
 
 squareDigit :: Int -> Int
@@ -119,3 +120,20 @@ maxSeqIndividual 0 _ s= s
 maxSeqIndividual l x s = if sum (take l x) > s
                         then maxSeqIndividual (l-1) x (sum (take l x))
                         else maxSeqIndividual (l-1) x s
+
+
+groupByCommas :: Int -> String
+groupByCommas  = groupByCommasString . show 
+
+groupByCommasString :: String -> String
+groupByCommasString (x:y:z:zs) = 
+    let fullArray = x:y:z:zs
+        arrayLengthMinus3 = subtract 3 . length $ fullArray
+        last3Char = reverse . take 3 . reverse $ fullArray
+        takeAllBut3 = take arrayLengthMinus3
+        remainder = groupByCommasString . takeAllBut3 $ fullArray
+    in remainder ++ "," ++ last3Char
+groupByCommasString x = x
+
+
+
