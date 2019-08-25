@@ -150,3 +150,31 @@ elemPartial a (x:xs)
 -- Fancier version
 inArray' :: [String] -> [String] -> [String]
 inArray' a1 a2 = sort . nub . filter (\s -> any (s `isInfixOf`) a2) $ a1
+
+
+findNb :: Integer -> Integer
+findNb volume = findNb' volume 0
+
+
+findNb' :: Integer -> Integer -> Integer
+findNb' volume iteration 
+    | volume == 0 = iteration
+    | volume < 0 = -1
+    | otherwise = findNb' subtractedVolume newIteration
+    where currentCubeVolume = (1+iteration) ^3
+          subtractedVolume = volume - currentCubeVolume
+          newIteration = iteration + 1
+
+
+findEvenIndex :: [Int] -> Int
+findEvenIndex arr = findEvenIndexRec arr 0
+
+findEvenIndexRec :: [Int] -> Int -> Int
+findEvenIndexRec array index
+            | index == length array = -1
+            | sumRight == sumLeft = index
+            | otherwise = findEvenIndexRec array (index + 1)
+            where reverseIndex = (length array) - index
+                  sumRight = sum . take (reverseIndex -1) . reverse $ array
+                  sumLeft = sum . take index $ array
+
